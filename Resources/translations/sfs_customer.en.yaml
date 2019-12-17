@@ -1,0 +1,13 @@
+platform:
+    values:
+        0: 'Internal'
+        1: 'Stripe'
+        2: 'Paypal'
+
+admin_customers:
+    list:
+        page_title: "Customers"
+        fields:
+            platformId.header: "ID"
+            email.header: "Email"
+            platform.header: "Platform"

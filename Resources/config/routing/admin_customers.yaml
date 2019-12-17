@@ -1,0 +1,3 @@
+sfs_customer_admin_customers_list:
+    controller: sfs_customer.admin.customer.controller::list
+    path: /

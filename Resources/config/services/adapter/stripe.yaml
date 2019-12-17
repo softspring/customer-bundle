@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $apiSecretKey: '%sfs_customer.adapter.stripe.apiSecretKey%'
+            $webhookSigningSecret: '%sfs_customer.adapter.stripe.webhookSigningSecret%'
+
+    Softspring\CustomerBundle\Adapter\CustomerAdapterInterface:
+        class: Softspring\CustomerBundle\Adapter\Stripe\StripeCustomerAdapter
+        tags:
+            - { name: 'sfs_customer.platform.adapter', alias: 'customer' }
+
+    Softspring\CustomerBundle\Adapter\SourceAdapterInterface:
+        class: Softspring\CustomerBundle\Adapter\Stripe\StripeSourceAdapter
+        tags:
+          - { name: 'sfs_customer.platform.adapter', alias: 'source' }

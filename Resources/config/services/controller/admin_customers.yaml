@@ -1,0 +1,21 @@
+services:
+    Softspring\CustomerBundle\Form\Admin\CustomerListFilterFormInterface:
+        alias: 'Softspring\CustomerBundle\Form\Admin\CustomerListFilterForm'
+
+    sfs_customer.admin.customer.controller:
+        class: Softspring\AdminBundle\Controller\EntityController
+        public: true
+        calls:
+            - { method: setContainer, arguments: ['@service_container'] }
+        arguments:
+            $manager: '@Softspring\CustomerBundle\Manager\CustomerManagerInterface'
+            $eventDispatcher: '@event_dispatcher'
+            $listFilterForm: '@Softspring\CustomerBundle\Form\Admin\CustomerListFilterFormInterface'
+            $createForm: null
+            $updateForm: null
+            $deleteForm: null
+            $config:
+                list:
+                    view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_LIST_VIEW
+                    view: '@@SfsCustomer/admin/customer/list.html.twig'
+                    view_page: '@@SfsCustomer/admin/customer/list-page.html.twig'

@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $em: '@sfs_customer.entity_manager'
+            $api: '@Softspring\CustomerBundle\Manager\ApiManagerInterface'
+
+    Softspring\CustomerBundle\Form\:
+        resource: '../../../Form/*'
+
+    Softspring\CustomerBundle\Manager\:
+        resource: '../../../Manager/*'
+
+    Softspring\CustomerBundle\Manager\ApiManager:
+        arguments:
+            $name: '%sfs_customer.adapter.name%'
+            $adapters: []
