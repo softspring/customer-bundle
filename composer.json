@@ -1,0 +1,26 @@
+{
+    "name": "softspring/customer-bundle",
+    "description": "This bundle provides customer features.",
+    "license": "MIT",
+    "require": {
+        "php": "^7.0",
+        "softspring/admin-bundle": "^1.0",
+        "softspring/core-bundle": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Softspring\\CustomerBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.2-dev"
+        }
+    },
+    "conflict": {
+        "stripe/stripe-php": "<6.40.0"
+    },
+    "suggest": {        
+        "stripe/stripe-php": "Add Stripe php client library if you want to set stripe as driver"
+    }
+}
