@@ -7,6 +7,10 @@ services:
             $em: '@sfs_customer.entity_manager'
             $api: '@Softspring\CustomerBundle\Manager\ApiManagerInterface'
 
+    Softspring\CustomerBundle\Controller\:
+        resource: '../../../Controller/*'
+        public: true
+
     Softspring\CustomerBundle\Form\:
         resource: '../../../Form/*'
 

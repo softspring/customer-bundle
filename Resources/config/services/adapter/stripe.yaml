@@ -16,3 +16,8 @@ services:
         class: Softspring\CustomerBundle\Adapter\Stripe\StripeSourceAdapter
         tags:
           - { name: 'sfs_customer.platform.adapter', alias: 'source' }
+
+    Softspring\CustomerBundle\Adapter\NotifyAdapterInterface:
+        class: Softspring\CustomerBundle\Adapter\Stripe\StripeNotifyAdapter
+        tags:
+            - { name: 'sfs_customer.platform.adapter', alias: 'notify' }
