@@ -6,6 +6,7 @@ services:
         bind:
             $apiSecretKey: '%sfs_customer.adapter.stripe.apiSecretKey%'
             $webhookSigningSecret: '%sfs_customer.adapter.stripe.webhookSigningSecret%'
+            $logger: '@?monolog.logger.stripe'
 
     Softspring\CustomerBundle\Adapter\CustomerAdapterInterface:
         class: Softspring\CustomerBundle\Adapter\Stripe\StripeCustomerAdapter

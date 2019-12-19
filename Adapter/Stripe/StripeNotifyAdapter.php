@@ -13,8 +13,12 @@ class StripeNotifyAdapter extends AbstractStripeAdapter implements NotifyAdapter
 {
     /**
      * @param Request $request
+     *
      * @return NotifyEvent
      * @throws SignatureVerificationException
+     * @throws \Softspring\CustomerBundle\Exception\NotFoundInPlatform
+     * @throws \Softspring\SubscriptionBundle\Exception\MaxSubscriptionsReachException
+     * @throws \Softspring\SubscriptionBundle\Exception\SubscriptionException
      */
     public function createEvent(Request $request): NotifyEvent
     {
@@ -32,8 +36,11 @@ class StripeNotifyAdapter extends AbstractStripeAdapter implements NotifyAdapter
         } catch(SignatureVerificationException $e) {
             // Invalid signature
             throw $e;
+        } catch (\Exception $e) {
+            $this->attachStripeExceptions($e);
         }
 
+        $this->logger->info(sprintf('Stripe webhook received: %s, event: %s', $event->id, $event->type));
         return new NotifyEvent(PlatformInterface::PLATFORM_STRIPE, $event->type, $event);
     }
 }

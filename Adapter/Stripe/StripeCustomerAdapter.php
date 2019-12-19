@@ -4,7 +4,6 @@ namespace Softspring\CustomerBundle\Adapter\Stripe;
 
 use Softspring\CustomerBundle\Model\CustomerInterface;
 use Softspring\CustomerBundle\Adapter\CustomerAdapterInterface;
-use Softspring\CustomerBundle\PlatformInterface;
 use Stripe\Card;
 use Stripe\Customer;
 
@@ -30,7 +29,12 @@ class StripeCustomerAdapter extends AbstractStripeAdapter implements CustomerAda
         //         'country' => $account->getCountry(),
         //     ],
 
-        return Customer::create($data)->id;
+
+        $customerId = Customer::create($data)->id;
+
+        $this->logger->info(sprintf('Stripe created customer %s', $customerId));
+
+        return $customerId;
     }
 
     /**
