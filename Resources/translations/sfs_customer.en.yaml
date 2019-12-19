@@ -11,3 +11,16 @@ admin_customers:
             platformId.header: "ID"
             email.header: "Email"
             platform.header: "Platform"
+
+platform_error:
+    stripe:
+        api_connection_error: "Sorry, we have connection issues while connecting with the payments provider"
+        unknown_card_error: "Sorry, there is a problem with your card"
+        customer_max_subscriptions: "Sorry, you have reached the maximum subscriptions limit"
+        not_found: "Resource not found"
+        invalid_request: "An error was produced while processing your request"
+        unknown_error: "An error was produced while processing your request"
+        status_not_yet_implemented: "This feature is not yet implemented"
+        insufficient_funds: "Insufficient funds"
+    unknown:
+        platform_not_yet_implemented: "The platform is not yet supported"

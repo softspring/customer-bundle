@@ -31,7 +31,7 @@ abstract class AbstractListResponse extends AbstractResponse implements \ArrayAc
                 break;
 
             default:
-                throw new PlatformNotYetImplemented();
+                throw new PlatformNotYetImplemented(-1, 'platform_not_yet_implemented');
         }
     }
 

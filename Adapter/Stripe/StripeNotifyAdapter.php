@@ -16,9 +16,7 @@ class StripeNotifyAdapter extends AbstractStripeAdapter implements NotifyAdapter
      *
      * @return NotifyEvent
      * @throws SignatureVerificationException
-     * @throws \Softspring\CustomerBundle\Exception\NotFoundInPlatform
-     * @throws \Softspring\SubscriptionBundle\Exception\MaxSubscriptionsReachException
-     * @throws \Softspring\SubscriptionBundle\Exception\SubscriptionException
+     * @throws \Softspring\CustomerBundle\Exception\PlatformException
      */
     public function createEvent(Request $request): NotifyEvent
     {

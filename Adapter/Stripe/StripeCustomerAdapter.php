@@ -2,6 +2,7 @@
 
 namespace Softspring\CustomerBundle\Adapter\Stripe;
 
+use Softspring\CustomerBundle\Exception\PlatformException;
 use Softspring\CustomerBundle\Model\CustomerInterface;
 use Softspring\CustomerBundle\Adapter\CustomerAdapterInterface;
 use Stripe\Card;
@@ -54,18 +55,23 @@ class StripeCustomerAdapter extends AbstractStripeAdapter implements CustomerAda
      * @param CustomerInterface $customer
      * @param string            $token
      *
-     * @return array
+     * @return array|object|Card
+     * @throws PlatformException
      */
     public function addCard(CustomerInterface $customer, string $token)
     {
-        $customer = $this->getData($customer);
+        try {
+            $customer = $this->getData($customer);
 
-        /** @var Card $source */
-        $source = $customer->sources->create(['source' => $token]);
+            /** @var Card $source */
+            $source = $customer->sources->create(['source' => $token]);
 
-        $customer->default_source = $source;
-        $customer->save();
+            $customer->default_source = $source;
+            $customer->save();
 
-        return $source;
+            return $source;
+        } catch (\Exception $e) {
+            $this->attachStripeExceptions($e);
+        }
     }
 }

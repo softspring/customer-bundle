@@ -11,3 +11,16 @@ admin_customers:
             platformId.header: "ID"
             email.header: "Email"
             platform.header: "Plataforma"
+
+platform_error:
+    stripe:
+        api_connection_error: "Tenemos problemas de conexión con el proveedor de pagos"
+        unknown_card_error: "Ha habido un problema con tu tarjeta"
+        customer_max_subscriptions: "Has alcanzado el número máximo de suscripciones"
+        not_found: "No se ha encontrado el recurso solicitado"
+        invalid_request: "Se ha producido un error procesando tu petición"
+        unknown_error: "Se ha producido un error procesando tu petición"
+        status_not_yet_implemented: "Esta funcionalidad no está aún implementada"
+        insufficient_funds: "Saldo insuficiente"
+    unknown:
+        platform_not_yet_implemented: "La plataforma no está aún soportada"
