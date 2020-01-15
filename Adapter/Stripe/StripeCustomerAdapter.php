@@ -7,6 +7,7 @@ use Softspring\CustomerBundle\Model\CustomerInterface;
 use Softspring\CustomerBundle\Adapter\CustomerAdapterInterface;
 use Stripe\Card;
 use Stripe\Customer;
+use Stripe\Invoice;
 
 class StripeCustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterInterface
 {
@@ -70,6 +71,25 @@ class StripeCustomerAdapter extends AbstractStripeAdapter implements CustomerAda
             $customer->save();
 
             return $source;
+        } catch (\Exception $e) {
+            $this->attachStripeExceptions($e);
+        }
+    }
+
+    /**
+     * @param CustomerInterface $customer
+     *
+     * @return array
+     * @throws PlatformException
+     */
+    public function invoices(CustomerInterface $customer): array
+    {
+        try {
+            $this->initStripe();
+
+            return Invoice::all([
+                'customer' => $customer->getPlatformId(),
+            ])->data;
         } catch (\Exception $e) {
             $this->attachStripeExceptions($e);
         }

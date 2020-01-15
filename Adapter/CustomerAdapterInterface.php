@@ -32,4 +32,11 @@ interface CustomerAdapterInterface extends PlatformAdapterInterface
      * @return object|array
      */
     public function addCard(CustomerInterface $customer, string $token);
+
+    /**
+     * @param CustomerInterface $customer
+     *
+     * @return array
+     */
+    public function invoices(CustomerInterface $customer): array;
 }
