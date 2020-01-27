@@ -10,7 +10,7 @@ class SfsCustomerEvents
     const NOTIFY = 'sfs_subscription.notify';
 
     /**
-     * @Event("Softspring\AdminBundle\Event\ViewEvent")
+     * @Event("Softspring\CoreBundle\Event\ViewEvent")
      */
     const ADMIN_CUSTOMERS_LIST_VIEW = 'sfs_customer.admin.customers.read_view';
 }

@@ -2,10 +2,10 @@
 
 namespace Softspring\CustomerBundle\Manager;
 
-use Softspring\AdminBundle\Manager\AdminEntityManagerInterface;
+use Softspring\CrudlBundle\Manager\CrudlEntityManagerInterface;
 use Softspring\CustomerBundle\Model\CustomerInterface;
 
-interface CustomerManagerInterface extends AdminEntityManagerInterface
+interface CustomerManagerInterface extends CrudlEntityManagerInterface
 {
     public function createInPlatform(CustomerInterface $customer): void;
 

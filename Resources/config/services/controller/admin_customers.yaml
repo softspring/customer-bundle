@@ -3,13 +3,12 @@ services:
         alias: 'Softspring\CustomerBundle\Form\Admin\CustomerListFilterForm'
 
     sfs_customer.admin.customer.controller:
-        class: Softspring\AdminBundle\Controller\EntityController
+        class: Softspring\CrudlBundle\Controller\CrudlController
         public: true
         calls:
             - { method: setContainer, arguments: ['@service_container'] }
         arguments:
             $manager: '@Softspring\CustomerBundle\Manager\CustomerManagerInterface'
-            $eventDispatcher: '@event_dispatcher'
             $listFilterForm: '@Softspring\CustomerBundle\Form\Admin\CustomerListFilterFormInterface'
             $createForm: null
             $updateForm: null
