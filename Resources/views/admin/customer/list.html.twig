@@ -7,6 +7,12 @@
         <h1 class="h3">Customers</h1>
     </div>
 
+    {% form_theme filterForm 'form/form_app_horizontal.html.twig' %}
+    {{ form_start(filterForm) }}
+    {{ form_widget(filterForm) }}
+    {{ form_rest(filterForm) }}
+    {{ form_end(filterForm) }}
+
     <table class="table table-striped table-hover">
         <thead>
         <tr>
