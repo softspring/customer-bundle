@@ -1,3 +1,7 @@
 sfs_customer_admin_customers_list:
     controller: sfs_customer.admin.customer.controller::list
     path: /
+
+sfs_customer_admin_customers_details:
+    controller: sfs_customer.admin.customer.controller::read
+    path: /{customer}

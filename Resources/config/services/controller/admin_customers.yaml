@@ -14,7 +14,12 @@ services:
             $updateForm: null
             $deleteForm: null
             $config:
+                entity_attribute: 'customer'
                 list:
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_LIST_VIEW
                     view: '@@SfsCustomer/admin/customer/list.html.twig'
                     view_page: '@@SfsCustomer/admin/customer/list-page.html.twig'
+                read:
+                    param_converter_key: 'id'
+                    view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_DETAILS_VIEW
+                    view: '@@SfsCustomer/admin/customer/details.html.twig'

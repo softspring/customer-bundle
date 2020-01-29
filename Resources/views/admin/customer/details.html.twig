@@ -1,0 +1,9 @@
+{% trans_default_domain 'sfs_customer' %}
+{% extends '@SfsCustomer/admin_layout.html.twig' %}
+{% block title %}{{ 'admin_customers.details.page_title'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3">{{ customer.name }}</h1>
+    </div>
+{% endblock content %}

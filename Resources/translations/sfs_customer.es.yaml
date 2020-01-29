@@ -11,6 +11,8 @@ admin_customers:
             platformId.header: "ID"
             email.header: "Email"
             platform.header: "Plataforma"
+        actions:
+            details.button: "detalles"
 
 platform_error:
     stripe:

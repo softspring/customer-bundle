@@ -5,5 +5,9 @@
         <td>{{ customer.platform ? ('platform.values.'~customer.platform)|trans : '' }}</td>
         <td>{{ customer.platformId }}</td>
         <td>{{ customer.email }}</td>
+
+        <td align="right">
+            <a href="{{ url('sfs_customer_admin_customers_details', {'customer':customer}) }}" class="text-nowrap">{{ 'admin_customers.list.actions.details.button'|trans }} <span class="mdi mdi-18px mdi-eye-outline align-middle"></span></a>
+        </td>
     </tr>
 {% endfor %}
