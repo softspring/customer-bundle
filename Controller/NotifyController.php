@@ -23,16 +23,18 @@ class NotifyController extends AbstractController
     protected $eventDispatcher;
 
     /**
-     * @var LoggerInterface
+     * @var LoggerInterface|null
      */
     protected $logger;
 
     /**
      * NotifyController constructor.
-     * @param NotifyAdapterInterface $notifyAdapter
+     *
+     * @param NotifyAdapterInterface   $notifyAdapter
      * @param EventDispatcherInterface $eventDispatcher
+     * @param LoggerInterface|null     $logger
      */
-    public function __construct(NotifyAdapterInterface $notifyAdapter, EventDispatcherInterface $eventDispatcher, LoggerInterface $logger)
+    public function __construct(NotifyAdapterInterface $notifyAdapter, EventDispatcherInterface $eventDispatcher, ?LoggerInterface $logger)
     {
         $this->notifyAdapter = $notifyAdapter;
         $this->eventDispatcher = $eventDispatcher;
@@ -50,8 +52,8 @@ class NotifyController extends AbstractController
 
             return new Response('', Response::HTTP_OK);
         } catch (\Exception $e) {
-            $this->logger->info($request->server->get('HTTP_STRIPE_SIGNATURE'));
-            $this->logger->err($e->getMessage());
+            $this->logger && $this->logger->info($request->server->get('HTTP_STRIPE_SIGNATURE'));
+            $this->logger && $this->logger->error($e->getMessage());
             return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }

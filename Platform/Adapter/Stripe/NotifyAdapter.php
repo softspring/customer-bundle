@@ -38,7 +38,7 @@ class NotifyAdapter extends AbstractStripeAdapter implements NotifyAdapterInterf
             $this->attachStripeExceptions($e);
         }
 
-        $this->logger->info(sprintf('Stripe webhook received: %s, event: %s', $event->id, $event->type));
+        $this->logger && $this->logger->info(sprintf('Stripe webhook received: %s, event: %s', $event->id, $event->type));
         return new NotifyEvent(PlatformInterface::PLATFORM_STRIPE, $event->type, $event);
     }
 
