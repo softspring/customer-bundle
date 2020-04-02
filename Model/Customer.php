@@ -2,7 +2,7 @@
 
 namespace Softspring\CustomerBundle\Model;
 
-abstract class Customer
+abstract class Customer implements CustomerInterface
 {
-
+    use CustomerTaxIdTrait;
 }

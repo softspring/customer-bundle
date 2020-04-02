@@ -3,7 +3,9 @@
 namespace Softspring\CustomerBundle\DependencyInjection\Compiler;
 
 use Softspring\CoreBundle\DependencyInjection\Compiler\AbstractResolveDoctrineTargetEntityPass;
+use Softspring\CustomerBundle\Model\AddressInterface;
 use Softspring\CustomerBundle\Model\CustomerInterface;
+use Softspring\CustomerBundle\Model\SourceInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ResolveDoctrineTargetEntityPass extends AbstractResolveDoctrineTargetEntityPass
@@ -22,5 +24,7 @@ class ResolveDoctrineTargetEntityPass extends AbstractResolveDoctrineTargetEntit
     public function process(ContainerBuilder $container)
     {
         $this->setTargetEntityFromParameter('sfs_customer.customer.class', CustomerInterface::class, $container, true);
+        $this->setTargetEntityFromParameter('sfs_customer.address.class', AddressInterface::class, $container, true);
+        $this->setTargetEntityFromParameter('sfs_customer.source.class', SourceInterface::class, $container, true);
     }
 }

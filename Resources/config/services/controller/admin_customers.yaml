@@ -1,4 +1,7 @@
 services:
+    Softspring\CustomerBundle\Form\Admin\CustomerCreateFormInterface:
+        alias: 'Softspring\CustomerBundle\Form\Admin\CustomerCreateForm'
+
     Softspring\CustomerBundle\Form\Admin\CustomerListFilterFormInterface:
         alias: 'Softspring\CustomerBundle\Form\Admin\CustomerListFilterForm'
 
@@ -10,7 +13,7 @@ services:
         arguments:
             $manager: '@Softspring\CustomerBundle\Manager\CustomerManagerInterface'
             $listFilterForm: '@Softspring\CustomerBundle\Form\Admin\CustomerListFilterFormInterface'
-            $createForm: null
+            $createForm: '@Softspring\CustomerBundle\Form\Admin\CustomerCreateFormInterface'
             $updateForm: null
             $deleteForm: null
             $config:
@@ -23,3 +26,12 @@ services:
                     param_converter_key: 'id'
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_DETAILS_VIEW
                     view: '@@SfsCustomer/admin/customer/details.html.twig'
+                create:
+                    param_converter_key: 'id'
+                    initialize_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_INITIALIZE
+                    form_valid_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_FORM_VALID
+                    success_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_SUCCESS
+                    form_invalid_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_FORM_INVALID
+                    view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_VIEW
+                    view: '@@SfsCustomer/admin/customer/create.html.twig'
+

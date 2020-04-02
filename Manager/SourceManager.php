@@ -3,6 +3,7 @@
 namespace Softspring\CustomerBundle\Manager;
 
 use Softspring\CustomerBundle\Model\CustomerInterface;
+use Softspring\CustomerBundle\Platform\ApiManagerInterface;
 
 class SourceManager implements SourceManagerInterface
 {

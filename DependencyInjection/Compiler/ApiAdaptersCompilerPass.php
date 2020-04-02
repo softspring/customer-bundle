@@ -2,7 +2,7 @@
 
 namespace Softspring\CustomerBundle\DependencyInjection\Compiler;
 
-use Softspring\CustomerBundle\Manager\ApiManagerInterface;
+use Softspring\CustomerBundle\Platform\ApiManagerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

@@ -18,9 +18,9 @@ class SfsCustomerBundle extends Bundle
     {
         parent::build($container);
 
-        $basePath = realpath(__DIR__.'/Resources/config/doctrine/mapping/');
+        $basePath = realpath(__DIR__.'/Resources/config/doctrine-mapping');
 
-        $this->addRegisterMappingsPass($container, [$basePath => 'Softspring\CustomerBundle\Model']);
+        $this->addRegisterMappingsPass($container, ["$basePath" => 'Softspring\CustomerBundle\Model']);
 
         $container->addCompilerPass(new AliasDoctrineEntityManagerPass());
         $container->addCompilerPass(new ResolveDoctrineTargetEntityPass());

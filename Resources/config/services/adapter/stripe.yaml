@@ -8,17 +8,23 @@ services:
             $webhookSigningSecret: '%sfs_customer.adapter.stripe.webhookSigningSecret%'
             $logger: '@?monolog.logger.stripe'
 
-    Softspring\CustomerBundle\Adapter\CustomerAdapterInterface:
-        class: Softspring\CustomerBundle\Adapter\Stripe\StripeCustomerAdapter
+    Softspring\CustomerBundle\Platform\Adapter\CustomerAdapterInterface:
+        class: Softspring\CustomerBundle\Platform\Adapter\Stripe\CustomerAdapter
         tags:
             - { name: 'sfs_customer.platform.adapter', alias: 'customer' }
 
-    Softspring\CustomerBundle\Adapter\SourceAdapterInterface:
-        class: Softspring\CustomerBundle\Adapter\Stripe\StripeSourceAdapter
+    Softspring\CustomerBundle\Platform\Adapter\SourceAdapterInterface:
+        class: Softspring\CustomerBundle\Platform\Adapter\Stripe\SourceAdapter
         tags:
           - { name: 'sfs_customer.platform.adapter', alias: 'source' }
 
-    Softspring\CustomerBundle\Adapter\NotifyAdapterInterface:
-        class: Softspring\CustomerBundle\Adapter\Stripe\StripeNotifyAdapter
+    Softspring\CustomerBundle\Platform\Adapter\NotifyAdapterInterface:
+        class: Softspring\CustomerBundle\Platform\Adapter\Stripe\NotifyAdapter
         tags:
             - { name: 'sfs_customer.platform.adapter', alias: 'notify' }
+
+    Softspring\CustomerBundle\Doctrine\EntityListener\StripeCustomerEntityListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', method: 'preUpdate', entity: '%sfs_customer.customer.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+            - { name: 'doctrine.orm.entity_listener', event: 'prePersist', method: 'prePersist', entity: '%sfs_customer.customer.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+            - { name: 'doctrine.orm.entity_listener', event: 'preRemove', method: 'preRemove', entity: '%sfs_customer.customer.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }

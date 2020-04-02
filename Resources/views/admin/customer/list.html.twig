@@ -2,12 +2,22 @@
 {% extends '@SfsCustomer/admin_layout.html.twig' %}
 {% block title %}{{ 'admin_customers.list.page_title'|trans }}{% endblock %}
 
+{% block breadcrums_content %}
+    {{ parent() }}
+    <li class="breadcrumb-item active" aria-current="page">{{ 'admin_customers.breadcrumb'|trans }}</li>
+{% endblock breadcrums_content %}
+
 {% block content %}
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h1 class="h3">Customers</h1>
+
+        {# TODO restrict by permission #}
+        <div class="float-right">
+            <a class="btn btn-outline-primary" href="{{ url('sfs_customer_admin_customers_create') }}">{{ 'admin_customers.list.actions.create.link'|trans }}</a>
+        </div>
     </div>
 
-    {% form_theme filterForm 'form/form_app_horizontal.html.twig' %}
+{#    {% form_theme filterForm 'form/form_app_horizontal.html.twig' %}#}
     {{ form_start(filterForm) }}
     {{ form_widget(filterForm) }}
     {{ form_rest(filterForm) }}
@@ -18,7 +28,8 @@
         <tr>
             <th scope="col">{{ 'admin_customers.list.fields.platform.header'|trans }}</th>
             <th scope="col">{{ 'admin_customers.list.fields.platformId.header'|trans }}</th>
-            <th scope="col">{{ 'admin_customers.list.fields.email.header'|trans }}</th>
+{#            <th scope="col">{{ 'admin_customers.list.fields.email.header'|trans }}</th>#}
+            <th scope="col">{{ 'admin_customers.list.fields.taxId.header'|trans }}</th>
             <th>&nbsp;</th>
         </tr>
         </thead>

@@ -33,6 +33,8 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('customer')->defaultValue('App\Entity\Customer')->end()
+                        ->scalarNode('address')->defaultValue('App\Entity\CustomerAddress')->end()
+                        ->scalarNode('source')->defaultValue('App\Entity\CustomerSource')->end()
                     ->end()
                 ->end()
             ->end()

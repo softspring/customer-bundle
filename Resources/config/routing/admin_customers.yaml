@@ -2,6 +2,10 @@ sfs_customer_admin_customers_list:
     controller: sfs_customer.admin.customer.controller::list
     path: /
 
+sfs_customer_admin_customers_create:
+    controller: sfs_customer.admin.customer.controller::create
+    path: /create
+
 sfs_customer_admin_customers_details:
     controller: sfs_customer.admin.customer.controller::read
     path: /{customer}

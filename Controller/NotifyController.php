@@ -4,7 +4,7 @@ namespace Softspring\CustomerBundle\Controller;
 
 use Psr\Log\LoggerInterface;
 use Softspring\CoreBundle\Controller\AbstractController;
-use Softspring\CustomerBundle\Adapter\NotifyAdapterInterface;
+use Softspring\CustomerBundle\Platform\Adapter\NotifyAdapterInterface;
 use Softspring\CustomerBundle\SfsCustomerEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

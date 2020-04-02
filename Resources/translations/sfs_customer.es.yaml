@@ -5,14 +5,24 @@ platform:
         2: 'Paypal'
 
 admin_customers:
+    breadcrumb: "Clientes"
     list:
         page_title: "Clientes"
         fields:
             platformId.header: "ID"
             email.header: "Email"
             platform.header: "Plataforma"
+            taxId.header: "ID fiscal"
         actions:
+            create.link: "nuevo cliente"
             details.button: "detalles"
+    create:
+        meta.title: "Nuevo cliente"
+        breadcrumb: "Nuevo cliente"
+        title: "Crear cliente"
+        actions:
+            create.button: "Crear"
+            cancel.button: "Cancelar"
 
 platform_error:
     stripe:
