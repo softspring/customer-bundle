@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    sfs_customer.settings.sources.controller:
+        class: Softspring\CustomerBundle\Controller\Settings\SourcesController
+        public: true
+        calls:
+            - { method: setContainer, arguments: ['@service_container'] }

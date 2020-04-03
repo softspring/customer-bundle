@@ -2,6 +2,8 @@
 
 namespace Softspring\CustomerBundle\Model;
 
+use Doctrine\Common\Collections\Collection;
+
 interface CustomerInterface extends PlatformObjectInterface
 {
     /**
@@ -23,4 +25,29 @@ interface CustomerInterface extends PlatformObjectInterface
      * @param string|null $taxIdCountry
      */
     public function setTaxIdCountry(?string $taxIdCountry): void;
+
+    /**
+     * @return Collection|SourceInterface[]
+     */
+    public function getSources(): Collection;
+
+    /**
+     * @param SourceInterface $source
+     */
+    public function addSource(SourceInterface $source): void;
+
+    /**
+     * @param SourceInterface $source
+     */
+    public function removeSource(SourceInterface $source): void;
+
+    /**
+     * @return SourceInterface|null
+     */
+    public function getDefaultSource(): ?SourceInterface;
+
+    /**
+     * @param SourceInterface|null $defaultSource
+     */
+    public function setDefaultSource(?SourceInterface $defaultSource): void;
 }

@@ -1,0 +1,27 @@
+{% extends '@SfsCustomer/settings_layout.html.twig' %}
+
+{% block content %}
+    <h1>Cards</h1>
+
+    {% if customer.defaultSource and customer.defaultSource.type == 1 %}
+    <div class="font-weight-bold mb-4">
+        {{ customer.defaultSource.platformData.brand }}
+        {{ customer.defaultSource.platformData.exp_month }}/{{ customer.defaultSource.platformData.exp_year }}
+        **** **** **** **** {{ customer.defaultSource.platformData.last4 }}
+    </div>
+    {% endif %}
+
+    <div class="mb-4">
+    {% for card in customer.sources|filter(source => source.type == 1 and source != customer.defaultSource) %}
+        <div>
+            {{ card.platformData.brand }}
+            {{ card.platformData.exp_month }}/{{ card.platformData.exp_year }}
+            **** **** **** **** {{ card.platformData.last4 }}
+        </div>
+    {% endfor %}
+    </div>
+
+    <div>
+    <a href="{{ url('sfs_customer_settings_sources_stripe_add_card') }}" class="btn btn-primary">add credit card</a>
+    </div>
+{% endblock content %}

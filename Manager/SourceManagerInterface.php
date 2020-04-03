@@ -2,15 +2,9 @@
 
 namespace Softspring\CustomerBundle\Manager;
 
-use Softspring\CustomerBundle\Model\CustomerInterface;
+use Softspring\CrudlBundle\Manager\CrudlEntityManagerInterface;
 
-interface SourceManagerInterface
+interface SourceManagerInterface extends CrudlEntityManagerInterface
 {
-    /**
-     * @param CustomerInterface $customer
-     * @param string            $sourceId
-     *
-     * @return array
-     */
-    public function getSource(CustomerInterface $customer, string $sourceId): array;
+
 }

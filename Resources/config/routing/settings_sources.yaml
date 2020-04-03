@@ -1,0 +1,7 @@
+sfs_customer_settings_sources_list:
+    controller: sfs_customer.settings.sources.controller::list
+    path: /
+
+sfs_customer_settings_sources_stripe_add_card:
+    controller: sfs_customer.settings.sources.controller::stripeAddCard
+    path: /stripe/add-card

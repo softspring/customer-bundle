@@ -3,6 +3,7 @@
 namespace Softspring\CustomerBundle\Platform\Adapter;
 
 use Softspring\CustomerBundle\Model\CustomerInterface;
+use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 
 /**
  * Interface CustomerAdapterInterface
@@ -15,6 +16,7 @@ interface CustomerAdapterInterface extends PlatformAdapterInterface
      * @param CustomerInterface $customer
      *
      * @return mixed
+     * @throws PlatformException
      */
     public function create(CustomerInterface $customer);
 
@@ -24,6 +26,7 @@ interface CustomerAdapterInterface extends PlatformAdapterInterface
      * @param CustomerInterface $customer
      *
      * @return mixed
+     * @throws PlatformException
      */
     public function update(CustomerInterface $customer);
 
@@ -33,6 +36,7 @@ interface CustomerAdapterInterface extends PlatformAdapterInterface
      * @param CustomerInterface $customer
      *
      * @return mixed
+     * @throws PlatformException
      */
     public function delete(CustomerInterface $customer);
 
@@ -42,21 +46,7 @@ interface CustomerAdapterInterface extends PlatformAdapterInterface
      * @param CustomerInterface $customer
      *
      * @return mixed
+     * @throws PlatformException
      */
     public function get(CustomerInterface $customer);
-
-//    /**
-//     * @param CustomerInterface $customer
-//     * @param string            $token
-//     *
-//     * @return object|array
-//     */
-//    public function addCard(CustomerInterface $customer, string $token);
-//
-//    /**
-//     * @param CustomerInterface $customer
-//     *
-//     * @return array
-//     */
-//    public function invoices(CustomerInterface $customer): array;
 }

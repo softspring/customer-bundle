@@ -40,6 +40,7 @@ class SfsCustomerExtension extends Extension implements PrependExtensionInterfac
 
         $loader->load('services.yaml');
         $loader->load('controller/admin_customers.yaml');
+        $loader->load('controller/settings_sources.yaml');
     }
 
 

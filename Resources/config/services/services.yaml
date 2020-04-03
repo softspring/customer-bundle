@@ -6,7 +6,6 @@ services:
         bind:
             $em: '@sfs_customer.entity_manager'
             $api: '@Softspring\CustomerBundle\Platform\ApiManagerInterface'
-            $targetClass: 'Softspring\CustomerBundle\Model\AddressInterface'
 
     Softspring\CustomerBundle\Controller\:
         resource: '../../../Controller/*'
@@ -18,8 +17,15 @@ services:
     Softspring\CustomerBundle\Manager\:
         resource: '../../../Manager/*'
 
+    Softspring\CustomerBundle\Manager\SourceManagerInterface:
+        class: Softspring\CustomerBundle\Manager\SourceManager
+        arguments:
+            $targetClass: 'Softspring\CustomerBundle\Model\SourceInterface'
+
     Softspring\CustomerBundle\Manager\AddressManagerInterface:
         class: Softspring\CrudlBundle\Manager\DefaultCrudlEntityManager
+        arguments:
+            $targetClass: 'Softspring\CustomerBundle\Model\AddressInterface'
 
     Softspring\CustomerBundle\Platform\ApiManagerInterface:
         class: Softspring\CustomerBundle\Platform\ApiManager

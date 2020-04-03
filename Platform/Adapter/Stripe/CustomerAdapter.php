@@ -6,9 +6,7 @@ use Softspring\CustomerBundle\Platform\Adapter\CustomerAdapterInterface;
 use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 use Softspring\CustomerBundle\Model\CustomerInterface;
 use Softspring\CustomerBundle\Platform\PlatformInterface;
-use Stripe\Card;
 use Stripe\Customer;
-use Stripe\Exception\InvalidRequestException;
 use Stripe\Invoice;
 
 class CustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterInterface
@@ -55,29 +53,33 @@ class CustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterIn
      */
     public function create(CustomerInterface $customer)
     {
-        $this->initStripe();
+        try {
+            $this->initStripe();
 
-        // prepare data for stripe
-        $data = self::prepareDataForPlatform($customer, 'create');
+            // prepare data for stripe
+            $data = self::prepareDataForPlatform($customer, 'create');
 
-        /** @var Customer $customerStripe */
-        $customerStripe = Customer::create($data['customer']);
+            /** @var Customer $customerStripe */
+            $customerStripe = Customer::create($data['customer']);
 
-        $this->logger && $this->logger->info(sprintf('Stripe created customer %s', $customerStripe->id));
+            $this->logger && $this->logger->info(sprintf('Stripe created customer %s', $customerStripe->id));
 
-        // save platform data
-        $customer->setPlatform(PlatformInterface::PLATFORM_STRIPE);
-        $customer->setPlatformId($customerStripe->id);
-        $customer->setTestMode(!$customerStripe->livemode);
-        // $customer->setPlatformLastSync($customerStripe->created);
-        $customer->setPlatformConflict(false);
-        $customer->setPlatformData($customerStripe->toArray());
+            // save platform data
+            $customer->setPlatform(PlatformInterface::PLATFORM_STRIPE);
+            $customer->setPlatformId($customerStripe->id);
+            $customer->setTestMode(!$customerStripe->livemode);
+            // $customer->setPlatformLastSync($customerStripe->created);
+            $customer->setPlatformConflict(false);
+            $customer->setPlatformData($customerStripe->toArray());
 
-        if (isset($data['tax_id'])) {
-            Customer::createTaxId($customerStripe->id, $data['tax_id']);
+            if (isset($data['tax_id'])) {
+                Customer::createTaxId($customerStripe->id, $data['tax_id']);
+            }
+
+            return $customerStripe;
+        } catch (\Exception $e) {
+            $this->attachStripeExceptions($e);
         }
-
-        return $customerStripe;
     }
 
     /**
@@ -85,43 +87,49 @@ class CustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterIn
      */
     public function update(CustomerInterface $customer)
     {
-        // prepare data for stripe
-        $data = self::prepareDataForPlatform($customer, 'update');
+        try {
+            $this->initStripe();
 
-        /** @var Customer $customerStripe */
-        $customerStripe = $this->get($customer);
-        $customerStripe->updateAttributes($data['customer']);
-        $customerStripe->save();
+            // prepare data for stripe
+            $data = self::prepareDataForPlatform($customer, 'update');
 
-        $this->logger && $this->logger->info(sprintf('Stripe updated customer %s', $customerStripe->id));
+            /** @var Customer $customerStripe */
+            $customerStripe = $this->get($customer);
+            $customerStripe->updateAttributes($data['customer']);
+            $customerStripe->save();
 
-        // save platform data
-        // $customer->setPlatformLastSync($customerStripe->updated);
-        $customer->setPlatformConflict(false);
-        $customer->setPlatformData($customerStripe->toArray());
+            $this->logger && $this->logger->info(sprintf('Stripe updated customer %s', $customerStripe->id));
 
-        if (isset($data['tax_id'])) {
-            $action = 'create';
-            foreach ($customerStripe->tax_ids->getIterator() as $taxId) {
-                if ($taxId->type == $data['tax_id']['type']) {
-                    if ($taxId->value == $data['tax_id']['value']) {
-                        $action = 'none';
-                    } else {
-                        $action = 'update';
-                        $deleteTaxId = $taxId->id;
+            // save platform data
+            // $customer->setPlatformLastSync($customerStripe->updated);
+            $customer->setPlatformConflict(false);
+            $customer->setPlatformData($customerStripe->toArray());
+
+            if (isset($data['tax_id'])) {
+                $action = 'create';
+                foreach ($customerStripe->tax_ids->getIterator() as $taxId) {
+                    if ($taxId->type == $data['tax_id']['type']) {
+                        if ($taxId->value == $data['tax_id']['value']) {
+                            $action = 'none';
+                        } else {
+                            $action = 'update';
+                            $deleteTaxId = $taxId->id;
+                        }
                     }
+                }
+
+                if ($action == 'create') {
+                    Customer::createTaxId($customerStripe->id, $data['tax_id']);
+                } elseif ($action == 'update') {
+                    Customer::deleteTaxId($customerStripe->id, $deleteTaxId);
+                    Customer::createTaxId($customerStripe->id, $data['tax_id']);
                 }
             }
 
-            if ($action == 'create') {
-                Customer::createTaxId($customerStripe->id, $data['tax_id']);
-            } elseif ($action == 'update') {
-                Customer::deleteTaxId($customerStripe->id, $deleteTaxId);
-                Customer::createTaxId($customerStripe->id, $data['tax_id']);
-            }
+            return $customerStripe;
+        } catch (\Exception $e) {
+            $this->attachStripeExceptions($e);
         }
-
-        return $customerStripe;
     }
 
     /**
@@ -130,12 +138,14 @@ class CustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterIn
     public function delete(CustomerInterface $customer)
     {
         try {
+            $this->initStripe();
+
             /** @var Customer $customerStripe */
             $customerStripe = $this->get($customer);
             $customerStripe->delete();
 
             $this->logger && $this->logger->info(sprintf('Stripe deleted customer %s', $customerStripe->id));
-        } catch (InvalidRequestException $e) {
+        } catch (\Exception $e) {
             $this->attachStripeExceptions($e);
         } finally {
             $customer->setPlatformId(null);
@@ -153,31 +163,6 @@ class CustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterIn
         return Customer::retrieve([
             'id' => $customer->getPlatformId(),
         ]);
-    }
-
-
-    /**
-     * @param CustomerInterface $customer
-     * @param string            $token
-     *
-     * @return array|object|Card
-     * @throws PlatformException
-     */
-    public function addCard(CustomerInterface $customer, string $token)
-    {
-        try {
-            $customer = $this->getData($customer);
-
-            /** @var Card $source */
-            $source = $customer->sources->create(['source' => $token]);
-
-            $customer->default_source = $source;
-            $customer->save();
-
-            return $source;
-        } catch (\Exception $e) {
-            $this->attachStripeExceptions($e);
-        }
     }
 
     /**

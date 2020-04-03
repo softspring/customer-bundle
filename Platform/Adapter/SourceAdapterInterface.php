@@ -2,15 +2,28 @@
 
 namespace Softspring\CustomerBundle\Platform\Adapter;
 
-use Softspring\CustomerBundle\Model\CustomerInterface;
+use Softspring\CustomerBundle\Model\SourceInterface;
+use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 
 interface SourceAdapterInterface extends PlatformAdapterInterface
 {
     /**
-     * @param CustomerInterface $customer
-     * @param string            $sourceId
+     * Creates source on defined platform
      *
-     * @return array
+     * @param SourceInterface $source
+     *
+     * @return mixed
+     * @throws PlatformException
      */
-    public function getSource(CustomerInterface $customer, string $sourceId): array;
+    public function create(SourceInterface $source);
+
+    /**
+     * Retrive the source platform data
+     *
+     * @param SourceInterface $source
+     *
+     * @return mixed
+     * @throws PlatformException
+     */
+    public function get(SourceInterface $source);
 }

@@ -28,3 +28,9 @@ services:
             - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', method: 'preUpdate', entity: '%sfs_customer.customer.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
             - { name: 'doctrine.orm.entity_listener', event: 'prePersist', method: 'prePersist', entity: '%sfs_customer.customer.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
             - { name: 'doctrine.orm.entity_listener', event: 'preRemove', method: 'preRemove', entity: '%sfs_customer.customer.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+
+    Softspring\CustomerBundle\Doctrine\EntityListener\StripeSourceEntityListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', method: 'preUpdate', entity: '%sfs_customer.source.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+            - { name: 'doctrine.orm.entity_listener', event: 'prePersist', method: 'prePersist', entity: '%sfs_customer.source.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+            - { name: 'doctrine.orm.entity_listener', event: 'preRemove', method: 'preRemove', entity: '%sfs_customer.source.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
