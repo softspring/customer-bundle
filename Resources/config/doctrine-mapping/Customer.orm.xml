@@ -5,6 +5,7 @@
                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="Softspring\CustomerBundle\Model\Customer" table="customer">
+        <field name="name" column="name" type="string" length="100" nullable="true" />
         <field name="taxIdNumber" column="tax_id_number" type="string" nullable="true" />
         <field name="taxIdCountry" column="tax_id_country" type="string" length="2" nullable="true">
             <options><option name="fixed">true</option></options>

@@ -11,6 +11,7 @@ admin_customers:
         fields:
             platformId.header: "ID"
             email.header: "Email"
+            name.header: "Nombre"
             platform.header: "Plataforma"
             taxId.header: "ID fiscal"
         actions:

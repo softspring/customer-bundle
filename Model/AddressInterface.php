@@ -2,10 +2,17 @@
 
 namespace Softspring\CustomerBundle\Model;
 
-interface AddressInterface extends PlatformObjectInterface
+use Softspring\DoctrineTemplates\Model\HCardInterface;
+
+interface AddressInterface extends PlatformObjectInterface, HCardInterface
 {
     /**
      * @return CustomerInterface|null
      */
     public function getCustomer(): ?CustomerInterface;
+
+    /**
+     * @param CustomerInterface|null $customer
+     */
+    public function setCustomer(?CustomerInterface $customer): void;
 }

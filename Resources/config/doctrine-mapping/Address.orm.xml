@@ -5,6 +5,20 @@
                       https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="Softspring\CustomerBundle\Model\Address" table="customer_address">
+        <many-to-one field="customer" target-entity="Softspring\CustomerBundle\Model\CustomerInterface" inversed-by="addresses">
+            <join-column name="customer_id" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
+
+<!--        <field name="name" column="name" type="string" length="100" nullable="true" />-->
+<!--        <field name="surname" column="surname" type="string" length="100" nullable="true" />-->
+<!--        <field name="tel" column="tel" type="string" length="20" nullable="true" />-->
+<!--        <field name="postOfficeBox" column="post_office_box" type="string" length="100" nullable="true" />-->
+<!--        <field name="streetAddress" column="street_address" type="string" length="100" nullable="true" />-->
+<!--        <field name="extendedAddress" column="extended_address" type="string" length="100" nullable="true" />-->
+<!--        <field name="locality" column="locality" type="string" length="100" nullable="true" />-->
+<!--        <field name="region" column="region" type="string" length="100" nullable="true" />-->
+<!--        <field name="postalCode" column="postal_code" type="string" length="10" nullable="true" />-->
+<!--        <field name="countryCode" column="country_code" type="string" length="2" nullable="true" />-->
 
         <!-- Softspring\CustomerBundle\Model\PlatformObjectTrait -->
         <field name="platform" column="platform" type="smallint" nullable="true"><options><option name="unsigned">true</option></options></field>

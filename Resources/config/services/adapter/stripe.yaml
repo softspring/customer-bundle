@@ -18,10 +18,21 @@ services:
         tags:
           - { name: 'sfs_customer.platform.adapter', alias: 'source' }
 
+    Softspring\CustomerBundle\Platform\Adapter\AddressAdapterInterface:
+        class: Softspring\CustomerBundle\Platform\Adapter\Stripe\AddressAdapter
+        tags:
+          - { name: 'sfs_customer.platform.adapter', alias: 'address' }
+
     Softspring\CustomerBundle\Platform\Adapter\NotifyAdapterInterface:
         class: Softspring\CustomerBundle\Platform\Adapter\Stripe\NotifyAdapter
         tags:
             - { name: 'sfs_customer.platform.adapter', alias: 'notify' }
+
+    Softspring\CustomerBundle\Doctrine\EntityListener\StripeAddressEntityListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', method: 'preUpdate', entity: '%sfs_customer.address.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+            - { name: 'doctrine.orm.entity_listener', event: 'prePersist', method: 'prePersist', entity: '%sfs_customer.address.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
+            - { name: 'doctrine.orm.entity_listener', event: 'preRemove', method: 'preRemove', entity: '%sfs_customer.address.class%' } # , entity_manager: '%sfs_customer.entity_manager_name%' }
 
     Softspring\CustomerBundle\Doctrine\EntityListener\StripeCustomerEntityListener:
         tags:

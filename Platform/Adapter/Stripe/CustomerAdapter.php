@@ -2,6 +2,7 @@
 
 namespace Softspring\CustomerBundle\Platform\Adapter\Stripe;
 
+use Softspring\CustomerBundle\Model\CustomerBillingAddressInterface;
 use Softspring\CustomerBundle\Platform\Adapter\CustomerAdapterInterface;
 use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 use Softspring\CustomerBundle\Model\CustomerInterface;
@@ -43,6 +44,22 @@ class CustomerAdapter extends AbstractStripeAdapter implements CustomerAdapterIn
 
         if (method_exists($customer, 'getName')) {
             $data['customer']['name'] = $customer->getName();
+        }
+
+        if ($customer instanceof CustomerBillingAddressInterface && $customer->getBillingAddress()) {
+            $data['customer']['description'] = $data['customer']['name'];
+
+            $data['customer']['name'] = trim("{$customer->getBillingAddress()->getName()} {$customer->getBillingAddress()->getSurname()}");
+            $data['customer']['address']['line1'] = $customer->getBillingAddress()->getStreetAddress();
+            $data['customer']['address']['line2'] = $customer->getBillingAddress()->getExtendedAddress();
+            $data['customer']['address']['city'] = $customer->getBillingAddress()->getLocality();
+            $data['customer']['address']['postal_code'] = $customer->getBillingAddress()->getPostalCode();
+            $data['customer']['address']['state'] = $customer->getBillingAddress()->getRegion();
+            $data['customer']['address']['country'] = $customer->getBillingAddress()->getCountryCode();
+
+            if ($customer->getBillingAddress()->getTel()) {
+                $data['customer']['phone'] = $customer->getBillingAddress()->getTel();
+            }
         }
 
         return $data;

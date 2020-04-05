@@ -3,8 +3,9 @@
 namespace Softspring\CustomerBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
+use Softspring\DoctrineTemplates\Model\NamedInterface;
 
-interface CustomerInterface extends PlatformObjectInterface
+interface CustomerInterface extends PlatformObjectInterface, NamedInterface
 {
     /**
      * @return string|null
