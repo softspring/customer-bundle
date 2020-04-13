@@ -19,14 +19,17 @@ services:
             $config:
                 entity_attribute: 'customer'
                 list:
+                    is_granted: 'ROLE_CUSTOMERS_ADMIN_CUSTOMERS_LIST'
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_LIST_VIEW
                     view: '@@SfsCustomer/admin/customer/list.html.twig'
                     view_page: '@@SfsCustomer/admin/customer/list-page.html.twig'
                 read:
+                    is_granted: 'ROLE_CUSTOMERS_ADMIN_CUSTOMERS_DETAILS'
                     param_converter_key: 'id'
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_DETAILS_VIEW
                     view: '@@SfsCustomer/admin/customer/details.html.twig'
                 create:
+                    is_granted: 'ROLE_CUSTOMERS_ADMIN_CUSTOMERS_CREATE'
                     param_converter_key: 'id'
                     initialize_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_INITIALIZE
                     form_valid_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_FORM_VALID
