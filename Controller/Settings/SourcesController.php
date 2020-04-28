@@ -2,7 +2,6 @@
 
 namespace Softspring\CustomerBundle\Controller\Settings;
 
-use App\Entity\CustomerSource;
 use Softspring\CoreBundle\Controller\AbstractController;
 use Softspring\CoreBundle\Event\ViewEvent;
 use Softspring\CustomerBundle\Form\Settings\SourcesStripeAddCardForm;
@@ -56,7 +55,6 @@ class SourcesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            /** @var CustomerSource $source */
             $source = $this->sourcesManager->createEntity();
             $source->setType(SourceInterface::TYPE_CARD);
             $source->setPlatformToken($data['stripeToken']);
