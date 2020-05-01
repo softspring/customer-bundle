@@ -79,7 +79,7 @@ class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterf
     /**
      * @inheritDoc
      */
-    public function get(SourceInterface $source): array
+    public function get(SourceInterface $source)
     {
         $this->initStripe();
 
