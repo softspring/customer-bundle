@@ -2,10 +2,13 @@
 
 namespace Softspring\CustomerBundle\Tests\Model;
 
+use Softspring\CustomerBundle\Model\CustomerAddressesInterface;
 use Softspring\CustomerBundle\Model\CustomerInterface;
 use PHPUnit\Framework\TestCase;
 use Softspring\CustomerBundle\Model\PlatformObjectInterface;
+use Softspring\CustomerBundle\Tests\Model\Examples\AddressExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerExample;
+use Softspring\CustomerBundle\Tests\Model\Examples\CustomerWithAddressesExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\SourceExample;
 
 class CustomerTest extends TestCase
@@ -14,6 +17,7 @@ class CustomerTest extends TestCase
     {
         $this->assertInstanceOf(CustomerInterface::class, new CustomerExample());
         $this->assertInstanceOf(PlatformObjectInterface::class, new CustomerExample());
+        $this->assertInstanceOf(CustomerAddressesInterface::class, new CustomerWithAddressesExample());
     }
 
     public function testSources()
@@ -44,5 +48,20 @@ class CustomerTest extends TestCase
 
         $customer->setTaxIdNumber('00000000X');
         $this->assertEquals('00000000X', $customer->getTaxIdNumber());
+    }
+
+    public function testAddresses()
+    {
+        $customer = new CustomerWithAddressesExample();
+        $address = new AddressExample();
+
+        $this->assertCount(0, $customer->getAddresses());
+
+        $customer->addAddress($address);
+        $this->assertCount(1, $customer->getAddresses());
+        $this->assertEquals($customer, $address->getCustomer());
+
+        $customer->removeAddress($address);
+        $this->assertCount(0, $customer->getAddresses());
     }
 }

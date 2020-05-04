@@ -3,9 +3,8 @@
     "description": "This bundle provides customer features.",
     "license": "MIT",
     "require": {
-        "php": "^7.0",
-        "softspring/crudl-bundle": "^1.0.4",
-        "softspring/doctrine-templates": "^1.1.0"
+        "php": "^7.1",
+        "softspring/crudl-bundle": "^1.0.4"
     },
     "autoload": {
         "psr-4": {
@@ -36,6 +35,7 @@
         "symfony/dependency-injection": "^5.0",
         "phpunit/phpunit": "^9.1",
         "doctrine/common": "^2.12",
-        "stripe/stripe-php": "^7.31"
+        "stripe/stripe-php": "^7.31",
+        "softspring/doctrine-templates": "^1.1"
     }
 }
