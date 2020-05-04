@@ -39,8 +39,7 @@ class CustomerManager implements CustomerManagerInterface
 
     public function createEntity()
     {
-        $metadata = $this->em->getClassMetadata($this->getClass());
-        $class = $metadata->getReflectionClass()->name;
+        $class = $this->getEntityClassReflection()->name;
 
         /** @var CustomerInterface $entity */
         $entity = new $class;
@@ -48,32 +47,4 @@ class CustomerManager implements CustomerManagerInterface
 
         return $entity;
     }
-
-//    public function createInPlatform(CustomerInterface $customer): void
-//    {
-//        if ($customer->getPlatformId()) {
-//            return;
-//        }
-//
-//        $customer->setPlatform($this->api->platformId());
-//        $customer->setPlatformId($this->api->get('customer')->create($customer));
-//
-//        // TODO $customer->setTestMode(true);
-//
-//        $this->em->persist($customer);
-//        $this->em->flush();
-//    }
-
-//    public function addCard(CustomerInterface $customer, string $token, bool $setDefault = false): ?string
-//    {
-//        if (!$customer->getPlatformId()) {
-//            return null; // TODO exception
-//        }
-//
-//        $this->api->get('customer')->addCard($customer, $token);
-//
-//        return $this->api->get('customer')->getData($customer)->default_source;
-//
-//        // TODO store default source
-//    }
 }
