@@ -118,6 +118,10 @@
 
 {% block content %}
     {{ form_start(form, {'attr':{'id':'cartPaymentMethodForm'}}) }}
+        {% if form.alias is defined %}
+            {{ form_row(form.alias) }}
+        {% endif %}
+
         <div class="col">
             <label for="card-element">
                 Credit or debit card

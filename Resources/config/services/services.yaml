@@ -33,3 +33,7 @@ services:
         arguments:
             $name: '%sfs_customer.adapter.name%'
             $adapters: []
+
+    Softspring\CustomerBundle\Twig\Extension\:
+        resource: '../../../Twig/Extension/*'
+        tags: ['twig.extension']

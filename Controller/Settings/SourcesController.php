@@ -7,6 +7,7 @@ use Softspring\CoreBundle\Event\ViewEvent;
 use Softspring\CustomerBundle\Form\Settings\SourcesStripeAddCardForm;
 use Softspring\CustomerBundle\Manager\SourceManagerInterface;
 use Softspring\CustomerBundle\Model\CustomerInterface;
+use Softspring\CustomerBundle\Model\SourceAliasedInterface;
 use Softspring\CustomerBundle\Model\SourceInterface;
 use Softspring\CustomerBundle\SfsCustomerEvents;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,10 @@ class SourcesController extends AbstractController
             $source->setType(SourceInterface::TYPE_CARD);
             $source->setPlatformToken($data['stripeToken']);
             $customer->addSource($source);
+
+            if ($source instanceof SourceAliasedInterface) {
+                $source->setAlias($data['alias']);
+            }
 
             if ($data['setDefault']) {
                 $customer->setDefaultSource($source);

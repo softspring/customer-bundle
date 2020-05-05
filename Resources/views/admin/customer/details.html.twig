@@ -33,6 +33,9 @@
             <div class="">
                 {% for card in customer.sources|filter(source => source.type == 1 and source != customer.defaultSource) %}
                     <div>
+                        {% if sfs_source_is('aliased') %}
+                            <strong>{{ card.alias }}</strong>
+                        {% endif %}
                         {{ card.platformData.brand }}
                         {{ card.platformData.exp_month }}/{{ card.platformData.exp_year }}
                         **** **** **** **** {{ card.platformData.last4 }}
