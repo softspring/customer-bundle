@@ -2,21 +2,16 @@
 
 namespace Softspring\CustomerBundle\Tests\Platform\Adapter\Stripe;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use Softspring\CustomerBundle\Platform\Exception\NotFoundInPlatform;
 use Softspring\CustomerBundle\Platform\Adapter\Stripe\CustomerAdapter;
-use PHPUnit\Framework\TestCase;
 use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 use Softspring\CustomerBundle\Tests\Model\Examples\AddressExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerBaseExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerFullExample;
-use Stripe\Collection;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\InvalidRequestException;
-use Stripe\Customer;
-use Stripe\TaxId;
 
-class CustomerAdapterTest extends TestCase
+class CustomerAdapterTest extends AbstractStripeAdapterTest
 {
     /**
      * @var CustomerAdapter
@@ -234,58 +229,5 @@ class CustomerAdapterTest extends TestCase
         $this->adapter->method('stripeClientRetrieve')->will($this->throwException($e));
 
         $this->adapter->update($customer);
-    }
-
-
-    /**
-     * @param array $params
-     *
-     * @return Customer|MockObject
-     */
-    protected function createStripeCustomerObject(array $params)
-    {
-        $stripeCustomer = $this->getMockBuilder(Customer::class)->getMock();
-        $params['object'] = 'customer';
-
-        $stripeCustomer->method('__get')->willReturnCallback(function ($param) use ($params) {
-            return $params[$param];
-        });
-
-        return $stripeCustomer;
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return Customer|MockObject
-     */
-    protected function createStripeTaxIdObject(array $params)
-    {
-        $stripeCustomer = $this->getMockBuilder(TaxId::class)->getMock();
-        $params['object'] = 'tax_id';
-
-        $stripeCustomer->method('__get')->willReturnCallback(function ($param) use ($params) {
-            return $params[$param];
-        });
-
-        return $stripeCustomer;
-    }
-
-    protected function createStripeCollectionObject(array $objects, bool $hasMore = false)
-    {
-        $stripeCollection = $this->getMockBuilder(Collection::class)->getMock();
-
-        $stripeCollection->method('getIterator')->willReturn(new \ArrayIterator($objects));
-
-        $params = [
-            'object' => 'list',
-            'has_more' => $hasMore,
-        ];
-
-        $stripeCollection->method('__get')->willReturnCallback(function ($param) use ($params) {
-            return $params[$param];
-        });
-
-        return $stripeCollection;
     }
 }

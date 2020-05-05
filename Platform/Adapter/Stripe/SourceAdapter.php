@@ -34,6 +34,17 @@ class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterf
         $this->customerAdapter = $customerAdapter;
     }
 
+    public function syncSource(SourceInterface $source, Source $sourceStripe)
+    {
+        // save platform data
+        $source->setPlatform(PlatformInterface::PLATFORM_STRIPE);
+        $source->setPlatformId($sourceStripe->id);
+        $source->setTestMode(!$sourceStripe->livemode);
+        // $source->setPlatformLastSync($sourceStripe->created);
+        $source->setPlatformConflict(false);
+        $source->setPlatformData($sourceStripe->toArray());
+    }
+
     /**
      * @inheritDoc
      */
@@ -62,17 +73,11 @@ class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterf
 
             $customerStripe->save();
 
-            // save platform data
-            $source->setPlatform(PlatformInterface::PLATFORM_STRIPE);
-            $source->setPlatformId($sourceStripe->id);
-            $source->setTestMode(!$sourceStripe->livemode);
-            // $source->setPlatformLastSync($sourceStripe->created);
-            $source->setPlatformConflict(false);
-            $source->setPlatformData($sourceStripe->toArray());
+            $this->syncSource($source, $sourceStripe);
 
             return $sourceStripe;
         } catch (\Exception $e) {
-            $this->attachStripeExceptions($e);
+            return $this->attachStripeExceptions($e);
         }
     }
 
@@ -81,14 +86,21 @@ class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterf
      */
     public function get(SourceInterface $source)
     {
-        $this->initStripe();
-
         try {
-            return Customer::retrieveSource($source->getCustomer()->getPlatformId(), $source->getPlatformId());
-        } catch (InvalidRequestException $e) {
-            throw new CustomerException($source->getCustomer()->getPlatformId(), '', 'Invalid stripe request', 0, $e);
+            $this->initStripe();
+
+            $sourceStripe = $this->stripeClientRetrieve($source->getCustomer()->getPlatformId(), $source->getPlatformId());
+
+            $this->syncSource($source, $sourceStripe);
+
+            return $sourceStripe;
         } catch (\Exception $e) {
-            throw new CustomerException($source->getCustomer()->getPlatformId(), '', 'Unknown stripe exception', 0, $e);
+            return $this->attachStripeExceptions($e);
         }
+    }
+
+    protected function stripeClientRetrieve($id, $sourceId, $params = null, $opts = null): Source
+    {
+        return Customer::retrieveSource($id, $sourceId, $params, $opts);
     }
 }

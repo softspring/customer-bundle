@@ -18,7 +18,7 @@ class AddressAdapter implements AddressAdapterInterface
     /**
      * @inheritDoc
      */
-    public function get(AddressInterface $address): array
+    public function get(AddressInterface $address)
     {
 
     }

@@ -2,6 +2,9 @@
 
 namespace Softspring\CustomerBundle\Platform\Response;
 
+/**
+ * @deprecated
+ */
 abstract class AbstractResponse
 {
     /**

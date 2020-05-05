@@ -3,6 +3,7 @@
 namespace Softspring\CustomerBundle\Platform;
 
 use Softspring\CustomerBundle\Platform\Adapter\PlatformAdapterInterface;
+use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 use Softspring\CustomerBundle\Platform\Exception\PlatformNotYetImplemented;
 
 class ApiManager implements ApiManagerInterface
@@ -47,7 +48,7 @@ class ApiManager implements ApiManagerInterface
                 return PlatformInterface::PLATFORM_STRIPE;
         }
 
-        throw new PlatformNotYetImplemented($this->name);
+        throw new PlatformNotYetImplemented(-1, $this->name);
     }
 
     /**
@@ -55,6 +56,10 @@ class ApiManager implements ApiManagerInterface
      */
     public function get(string $adapter): PlatformAdapterInterface
     {
+        if (!isset($this->adapters[$adapter])) {
+            throw new PlatformException($this->platformId(), sprintf('Adapter %s does not exist', $adapter));
+        }
+
         return $this->adapters[$adapter];
     }
 }

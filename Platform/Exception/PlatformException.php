@@ -49,11 +49,8 @@ class PlatformException extends \Exception
             case PlatformInterface::PLATFORM_STRIPE:
                 return 'platform_error.stripe.'.$this->getPlatformError();
 
-            case PlatformInterface::PLATFORM_PAYPAL:
-                return 'platform_error.paypal.'.$this->getPlatformError();
-
-            case PlatformInterface::PLATFORM_NONE:
-                return 'platform_error.none.'.$this->getPlatformError();
+            case PlatformInterface::PLATFORM_APP:
+                return 'platform_error.app.'.$this->getPlatformError();
 
             default:
                 return 'platform_error.unknown.'.$this->getPlatformError();
