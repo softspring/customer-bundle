@@ -7,7 +7,7 @@ use Softspring\CustomerBundle\Model\CustomerInterface;
 use PHPUnit\Framework\TestCase;
 use Softspring\CustomerBundle\Model\PlatformObjectInterface;
 use Softspring\CustomerBundle\Tests\Model\Examples\AddressExample;
-use Softspring\CustomerBundle\Tests\Model\Examples\CustomerExample;
+use Softspring\CustomerBundle\Tests\Model\Examples\CustomerBaseExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerWithAddressesExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\SourceExample;
 
@@ -15,14 +15,14 @@ class CustomerTest extends TestCase
 {
     public function testInterfaces()
     {
-        $this->assertInstanceOf(CustomerInterface::class, new CustomerExample());
-        $this->assertInstanceOf(PlatformObjectInterface::class, new CustomerExample());
+        $this->assertInstanceOf(CustomerInterface::class, new CustomerBaseExample());
+        $this->assertInstanceOf(PlatformObjectInterface::class, new CustomerBaseExample());
         $this->assertInstanceOf(CustomerAddressesInterface::class, new CustomerWithAddressesExample());
     }
 
     public function testSources()
     {
-        $customer = new CustomerExample();
+        $customer = new CustomerBaseExample();
 
         $this->assertNull($customer->getDefaultSource());
         $this->assertEquals(0, $customer->getSources()->count());
@@ -41,7 +41,7 @@ class CustomerTest extends TestCase
 
     public function testTaxId()
     {
-        $customer = new CustomerExample();
+        $customer = new CustomerBaseExample();
 
         $customer->setTaxIdCountry('ES');
         $this->assertEquals('ES', $customer->getTaxIdCountry());

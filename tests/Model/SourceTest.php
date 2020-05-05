@@ -5,7 +5,7 @@ namespace Softspring\CustomerBundle\Tests\Model;
 use PHPUnit\Framework\TestCase;
 use Softspring\CustomerBundle\Model\PlatformObjectInterface;
 use Softspring\CustomerBundle\Model\SourceInterface;
-use Softspring\CustomerBundle\Tests\Model\Examples\CustomerExample;
+use Softspring\CustomerBundle\Tests\Model\Examples\CustomerBaseExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\SourceExample;
 
 class SourceTest extends TestCase
@@ -27,7 +27,7 @@ class SourceTest extends TestCase
         $source->setType(SourceInterface::TYPE_CARD);
         $this->assertEquals(SourceInterface::TYPE_CARD, $source->getType());
 
-        $customer = new CustomerExample();
+        $customer = new CustomerBaseExample();
         $source->setCustomer($customer);
         $this->assertEquals($customer, $source->getCustomer());
 

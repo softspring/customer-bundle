@@ -8,7 +8,6 @@ use Softspring\CustomerBundle\Platform\Exception\PaymentException;
 use Softspring\CustomerBundle\Platform\Exception\PlatformException;
 use Softspring\CustomerBundle\Platform\PlatformInterface;
 use Softspring\SubscriptionBundle\Platform\Exception\MaxSubscriptionsReachException;
-use Softspring\SubscriptionBundle\Platform\Exception\SubscriptionException;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\CardException;
 use Stripe\Exception\InvalidRequestException;
@@ -60,6 +59,10 @@ abstract class AbstractStripeAdapter
      */
     protected function attachStripeExceptions(\Throwable $e): void
     {
+        if ($e instanceof PlatformException) {
+            throw $e;
+        }
+
         if ($e instanceof ApiConnectionException) {
             $this->logger && $this->logger->error(sprintf('Can not connect to Stripe: %s', $e->getMessage()));
             throw new PlatformException(PlatformInterface::PLATFORM_STRIPE, 'api_connection_error', 'Can not connecto to stripe', 0, $e);
@@ -88,11 +91,11 @@ abstract class AbstractStripeAdapter
 
                 default:
                     $this->logger && $this->logger->error(sprintf('Stripe invalid request: %s', $e->getMessage()));
-                    throw new SubscriptionException(PlatformInterface::PLATFORM_STRIPE, 'invalid_request','Invalid stripe request', 0, $e);
+                    throw new PlatformException(PlatformInterface::PLATFORM_STRIPE, 'invalid_request','Invalid stripe request', 0, $e);
             }
         }
 
         $this->logger && $this->logger->error(sprintf('Stripe unknown exception: %s', $e->getMessage()));
-        throw new SubscriptionException(PlatformInterface::PLATFORM_STRIPE, 'unknown_error', 'Unknown stripe exception', 0, $e);
+        throw new PlatformException(PlatformInterface::PLATFORM_STRIPE, 'unknown_error', 'Unknown stripe exception', 0, $e);
     }
 }
