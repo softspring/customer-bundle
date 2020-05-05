@@ -7,10 +7,9 @@ use Softspring\CustomerBundle\Model\CustomerInterface;
 use Softspring\CustomerBundle\Model\SourceInterface;
 use Softspring\CustomerBundle\Platform\Adapter\CustomerAdapterInterface;
 use Softspring\CustomerBundle\Platform\Adapter\SourceAdapterInterface;
-use Softspring\CustomerBundle\Platform\Exception\CustomerException;
 use Softspring\CustomerBundle\Platform\PlatformInterface;
+use Stripe\Card;
 use Stripe\Customer;
-use Stripe\Exception\InvalidRequestException;
 use Stripe\Source;
 
 class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterface
@@ -34,7 +33,11 @@ class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterf
         $this->customerAdapter = $customerAdapter;
     }
 
-    public function syncSource(SourceInterface $source, Source $sourceStripe)
+    /**
+     * @param SourceInterface $source
+     * @param Source|Card     $sourceStripe
+     */
+    public function syncSource(SourceInterface $source, $sourceStripe)
     {
         // save platform data
         $source->setPlatform(PlatformInterface::PLATFORM_STRIPE);
