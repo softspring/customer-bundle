@@ -14,8 +14,10 @@ services:
     Softspring\CustomerBundle\Form\:
         resource: '../../../Form/*'
 
-    Softspring\CustomerBundle\Manager\:
-        resource: '../../../Manager/*'
+    Softspring\CustomerBundle\Manager\CustomerManagerInterface:
+        class: Softspring\CustomerBundle\Manager\CustomerManager
+        arguments:
+            $targetClass: 'Softspring\CustomerBundle\Model\CustomerInterface'
 
     Softspring\CustomerBundle\Manager\SourceManagerInterface:
         class: Softspring\CustomerBundle\Manager\SourceManager
