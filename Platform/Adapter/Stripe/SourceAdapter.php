@@ -102,7 +102,16 @@ class SourceAdapter extends AbstractStripeAdapter implements SourceAdapterInterf
         }
     }
 
-    protected function stripeClientRetrieve($id, $sourceId, $params = null, $opts = null): Source
+    /**
+     * @param      $id
+     * @param      $sourceId
+     * @param null $params
+     * @param null $opts
+     *
+     * @return \Stripe\AlipayAccount|\Stripe\BankAccount|\Stripe\BitcoinReceiver|Card|Source
+     * @throws \Stripe\Exception\ApiErrorException
+     */
+    protected function stripeClientRetrieve($id, $sourceId, $params = null, $opts = null)
     {
         return Customer::retrieveSource($id, $sourceId, $params, $opts);
     }
