@@ -22,7 +22,5 @@ interface CustomerManagerInterface extends CrudlEntityManagerInterface
      */
     public function deleteEntity($entity): void;
 
-    // public function createInPlatform(CustomerInterface $customer): void;
-
     // public function addCard(CustomerInterface $customer, string $token, bool $setDefault = false): ?string;
 }

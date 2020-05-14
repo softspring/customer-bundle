@@ -2,8 +2,6 @@
 
 namespace Softspring\CustomerBundle\Model;
 
-use Softspring\CustomerBundle\Model\AddressInterface;
-
 trait CustomerBillingAddressTrait
 {
     /**

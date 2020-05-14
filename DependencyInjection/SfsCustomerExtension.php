@@ -30,14 +30,6 @@ class SfsCustomerExtension extends Extension implements PrependExtensionInterfac
         // load services
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
 
-        $container->setParameter('sfs_customer.adapter.name', $config['adapter']['driver']);
-
-        if ($config['adapter']['driver'] == 'stripe') {
-            $container->setParameter('sfs_customer.adapter.stripe.apiSecretKey', $config['adapter']['options']['apiSecretKey']);
-            $container->setParameter('sfs_customer.adapter.stripe.webhookSigningSecret', $config['adapter']['options']['webhookSigningSecret'] ?? null);
-            $loader->load('adapter/stripe.yaml');
-        }
-
         $loader->load('services.yaml');
         $loader->load('controller/admin_customers.yaml');
         $loader->load('controller/settings_sources.yaml');

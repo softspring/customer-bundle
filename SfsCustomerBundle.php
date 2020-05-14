@@ -4,7 +4,6 @@ namespace Softspring\CustomerBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Softspring\CustomerBundle\DependencyInjection\Compiler\AliasDoctrineEntityManagerPass;
-use Softspring\CustomerBundle\DependencyInjection\Compiler\ApiAdaptersCompilerPass;
 use Softspring\CustomerBundle\DependencyInjection\Compiler\ResolveDoctrineTargetEntityPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -24,7 +23,6 @@ class SfsCustomerBundle extends Bundle
 
         $container->addCompilerPass(new AliasDoctrineEntityManagerPass());
         $container->addCompilerPass(new ResolveDoctrineTargetEntityPass());
-        $container->addCompilerPass(new ApiAdaptersCompilerPass());
     }
 
     /**

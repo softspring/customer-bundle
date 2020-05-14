@@ -5,11 +5,9 @@ namespace Softspring\CustomerBundle\Tests\Model\Examples;
 use Softspring\CustomerBundle\Model\Customer;
 use Softspring\CustomerBundle\Model\CustomerBillingAddressInterface;
 use Softspring\CustomerBundle\Model\CustomerBillingAddressTrait;
-use Softspring\CustomerBundle\Model\PlatformObjectTrait;
 
 class CustomerFullExample extends Customer implements CustomerBillingAddressInterface
 {
-    use PlatformObjectTrait;
     use CustomerBillingAddressTrait;
 
     /**

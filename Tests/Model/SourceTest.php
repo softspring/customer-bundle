@@ -3,7 +3,6 @@
 namespace Softspring\CustomerBundle\Tests\Model;
 
 use PHPUnit\Framework\TestCase;
-use Softspring\CustomerBundle\Model\PlatformObjectInterface;
 use Softspring\CustomerBundle\Model\SourceInterface;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerBaseExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\SourceExample;
@@ -13,7 +12,6 @@ class SourceTest extends TestCase
     public function testInterfaces()
     {
         $this->assertInstanceOf(SourceInterface::class, new SourceExample());
-        $this->assertInstanceOf(PlatformObjectInterface::class, new SourceExample());
     }
 
     public function testSources()

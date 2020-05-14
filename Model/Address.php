@@ -6,7 +6,6 @@ use Softspring\DoctrineTemplates\Entity\Traits\HCardTrait;
 
 abstract class Address implements AddressInterface
 {
-    use PlatformObjectTrait;
     use HCardTrait;
 
     /**

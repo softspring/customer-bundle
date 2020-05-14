@@ -4,7 +4,7 @@ namespace Softspring\CustomerBundle\Model;
 
 use Softspring\DoctrineTemplates\Model\HCardInterface;
 
-interface AddressInterface extends PlatformObjectInterface, HCardInterface
+interface AddressInterface extends HCardInterface
 {
     /**
      * @return CustomerInterface|null

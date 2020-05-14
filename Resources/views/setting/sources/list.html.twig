@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Cards</h1>
 
-    {% if customer.defaultSource and customer.defaultSource.type == 1 %}
+    {% if customer.defaultSource and customer.defaultSource.type == 1 and customer.defaultSource.platformData %}
     <div class="font-weight-bold mb-4">
         {{ customer.defaultSource.platformData.brand }}
         {{ customer.defaultSource.platformData.exp_month }}/{{ customer.defaultSource.platformData.exp_year }}
@@ -17,9 +17,11 @@
             {% if sfs_source_is('aliased') %}
                 <strong>{{ card.alias }}</strong>
             {% endif %}
-            {{ card.platformData.brand }}
-            {{ card.platformData.exp_month }}/{{ card.platformData.exp_year }}
-            **** **** **** **** {{ card.platformData.last4 }}
+            {% if card.platformData %}
+                {{ card.platformData.brand }}
+                {{ card.platformData.exp_month }}/{{ card.platformData.exp_year }}
+                **** **** **** **** {{ card.platformData.last4 }}
+            {% endif %}
         </div>
     {% endfor %}
     </div>

@@ -3,7 +3,6 @@
 {% for customer in entities %}
     <tr>
         <td>{{ customer.name }}</td>
-        <td>{{ customer.platform ? ('platform.values.'~customer.platform)|trans : '' }}</td>
         <td>{{ customer.taxIdCountry }} {{ customer.taxIdNumber }}</td>
 
         <td align="right">

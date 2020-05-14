@@ -5,7 +5,6 @@ namespace Softspring\CustomerBundle\Tests\Model;
 use Softspring\CustomerBundle\Model\CustomerAddressesInterface;
 use Softspring\CustomerBundle\Model\CustomerInterface;
 use PHPUnit\Framework\TestCase;
-use Softspring\CustomerBundle\Model\PlatformObjectInterface;
 use Softspring\CustomerBundle\Tests\Model\Examples\AddressExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerBaseExample;
 use Softspring\CustomerBundle\Tests\Model\Examples\CustomerWithAddressesExample;
@@ -16,7 +15,6 @@ class CustomerTest extends TestCase
     public function testInterfaces()
     {
         $this->assertInstanceOf(CustomerInterface::class, new CustomerBaseExample());
-        $this->assertInstanceOf(PlatformObjectInterface::class, new CustomerBaseExample());
         $this->assertInstanceOf(CustomerAddressesInterface::class, new CustomerWithAddressesExample());
     }
 

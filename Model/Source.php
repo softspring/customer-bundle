@@ -4,8 +4,6 @@ namespace Softspring\CustomerBundle\Model;
 
 abstract class Source implements SourceInterface
 {
-    use PlatformObjectTrait;
-
     /**
      * @var int|null
      */

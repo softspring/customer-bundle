@@ -2,9 +2,10 @@
 
 namespace Softspring\CustomerBundle\Model;
 
-interface SourceInterface extends PlatformObjectInterface
+interface SourceInterface
 {
     const TYPE_CARD = 1;
+    const TYPE_BANK_ACCOUNT = 2;
 
     /**
      * @return int|null
