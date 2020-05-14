@@ -1,3 +1,0 @@
-sfs_customer_notify:
-    controller: Softspring\CustomerBundle\Controller\NotifyController::notify
-    path: /
