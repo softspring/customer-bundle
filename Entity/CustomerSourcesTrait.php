@@ -20,6 +20,7 @@ trait CustomerSourcesTrait
     /**
      * @var SourceInterface
      * @ORM\ManyToOne(targetEntity="Softspring\CustomerBundle\Model\SourceInterface")
+     * @ORM\JoinColumn(name="default_source_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $defaultSource;
 }
