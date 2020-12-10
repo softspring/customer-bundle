@@ -1,3 +1,9 @@
+parameters:
+    sfs_customer.admin.customers.list_view: '@@SfsCustomer/admin/customer/list.html.twig'
+    sfs_customer.admin.customers.list_page_view: '@@SfsCustomer/admin/customer/list-page.html.twig'
+    sfs_customer.admin.customers.read_view: '@@SfsCustomer/admin/customer/read.html.twig'
+    sfs_customer.admin.customers.create_view: '@@SfsCustomer/admin/customer/create.html.twig'
+
 services:
     Softspring\CustomerBundle\Form\Admin\CustomerCreateFormInterface:
         alias: 'Softspring\CustomerBundle\Form\Admin\CustomerCreateForm'
@@ -21,13 +27,13 @@ services:
                 list:
                     is_granted: 'ROLE_CUSTOMERS_ADMIN_CUSTOMERS_LIST'
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_LIST_VIEW
-                    view: '@@SfsCustomer/admin/customer/list.html.twig'
-                    view_page: '@@SfsCustomer/admin/customer/list-page.html.twig'
+                    view: '%sfs_customer.admin.customers.list_view%'
+                    view_page: '%sfs_customer.admin.customers.list_page_view%'
                 read:
                     is_granted: 'ROLE_CUSTOMERS_ADMIN_CUSTOMERS_DETAILS'
                     param_converter_key: 'id'
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_DETAILS_VIEW
-                    view: '@@SfsCustomer/admin/customer/details.html.twig'
+                    view: '%sfs_customer.admin.customers.read_view%'
                 create:
                     is_granted: 'ROLE_CUSTOMERS_ADMIN_CUSTOMERS_CREATE'
                     param_converter_key: 'id'
@@ -36,5 +42,5 @@ services:
                     success_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_SUCCESS
                     form_invalid_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_FORM_INVALID
                     view_event_name: !php/const Softspring\CustomerBundle\SfsCustomerEvents::ADMIN_CUSTOMERS_CREATE_VIEW
-                    view: '@@SfsCustomer/admin/customer/create.html.twig'
+                    view: '%sfs_customer.admin.customers.create_view%'
 
